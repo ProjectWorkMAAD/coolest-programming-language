@@ -1,0 +1,3 @@
+pip install https://s3.amazonaws.com/tsid-maad-test-1/app.tar.gz
+
+##  https://s3.amazonaws.com/bucket/key
