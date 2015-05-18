@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Team MAAD</title>
+
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/style.css" rel="stylesheet" />
+    <link href="Content/style-responsive.css" rel="stylesheet" />
+    <link href="Content/table-responsive.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+
+</head>
+<body>
+
+
+    <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="index.html" class="logo"><b>Project Work MAAD</b></a>
+        <!--logo end-->
+    </header>
+
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <li class="mt">
+                    <a href="index.html">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="team.html">
+                        <i class="fa fa-users"></i>
+                        <span>Il team</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a href="twitter.html">
+                        <i class="fa fa-code"></i>
+                        <span>Twitter Analysis</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a class="active" href="contacts.html">
+                        <i class="fa fa-edit"></i>
+                        <span>Contattaci</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- main content start-->
+
+    <section id="main-content">
+        <section class="wrapper site-min-height">
+            <h3><i class="fa fa-edit"></i> Contattaci</h3>
+            <div class="row mt">
+                <div class="col-lg-12">
+
+                    <div class="jumbotron">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec faucibus ante. Proin vitae aliquam justo. Sed posuere ornare odio at convallis. Morbi congue tincidunt laoreet. Cras cursus augue a tempus ullamcorper. Vivamus bibendum nunc in vestibulum condimentum. <br />In nec lacus et tortor pellentesque sodales. Praesent tempus, ipsum sed congue commodo, nisl turpis luctus sapien, eu eleifend mauris enim pellentesque lectus. Mauris eget ullamcorper mauris, et placerat mi. Interdum et malesuada fames ac ante ipsum primis in faucibus.<br />
+                        </p>
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-md-offset-2">
+
+                            <div class="form-group">
+                                <label for="name">Nome</label>
+                                <input type="text" class="form-control" id="name" placeholder="Inserisci nome" required="required" /><br />
+
+                                <label for="email">Indirizzo email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                    <input type="email" class="form-control" id="email" placeholder="Inserisci email" required="required" />
+                                </div>
+                            </div>
+                            <div class="g-recaptcha" data-sitekey="6LfB6wYTAAAAAOwcKlFb-TZLwDOV3DpE1AscUnnC">
+                            </div><br />
+                            <input type="submit" name="submit" id="submit" value="Invia" class="btn btn-info">
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="name">Messaggio</label>
+                                <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Scrivi il tuo messaggio"></textarea><br />
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section><! --/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+        <div class="text-center">
+            2015 - Project Work MAAD
+            <a href="contacts.html" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+    <!-- ############### SCRIPTS ###############################  -->
+
+    <script src="Scripts/jquery.js"></script>
+    <script src="Scripts/jquery-1.9.1.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="Scripts/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="Scripts/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="Scripts/common-scripts.js"></script>
+</body>
+</html>
