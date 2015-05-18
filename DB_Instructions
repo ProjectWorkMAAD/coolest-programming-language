@@ -1,0 +1,10 @@
+HOW TO ACCESS THE DATABASE:
+
+##connect to the tsid isntance via ssh
+
+ssh tsid
+
+##connect
+
+psql -d db_twitter -U maad
+
