@@ -1,6 +1,0 @@
-setup.py
-twitter_stream/__init__.py
-twitter_stream.egg-info/PKG-INFO
-twitter_stream.egg-info/SOURCES.txt
-twitter_stream.egg-info/dependency_links.txt
-twitter_stream.egg-info/top_level.txt
