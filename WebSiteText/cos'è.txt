@@ -1,0 +1,17 @@
+ProjectMAAD è un applicazione web che fornisce analisi in tempo reale 
+sulla popolarità dei linguaggi di programmazione nei principali paesi dell' Unione Europea tramite i dati forniti dalle 
+API Stream di Twitter.
+
+Tecnologie utilizzate:
+
+L' applicazione web è hostata su Microsoft AZURE; 
+i programmi di analisi ed il Data Base relazionale Postgres sul quale essa si appoggia 
+sono invece su un istanza Ubuntu di Amazon AWS.
+
+Per la realizzazione del sito sono state utilizzate tecnologie del .NET Framework (ADO.net) e il modello MVC di ASP.net, 
+
+Il recupero, la pulizia dei dati e la scrittura di questi su Database sono state realizzate mediante script Python.
+Il programma di analisi dei dati è stato scritto in Java.
+Per la presentazione dei dati sono stati utilizzati @C#, HTML5, JAVASCRIPT, JQuery, e il framework Bootstrap.
+
+Il codice è OpenSource ed è pubblicato su GIThub all' indirizzo https://angelogay.it
