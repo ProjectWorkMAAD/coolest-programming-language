@@ -1,6 +1,0 @@
-//TODO:
-
--modificare lo stream_listener in modo da renderlo una libreria 
--modificare il cleaner
--creare script per gestire l' accesso al file
--caricare tutto si aws, installare le due librerie e uploadare il programma nella cartella scripts
