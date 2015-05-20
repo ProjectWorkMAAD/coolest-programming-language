@@ -40,6 +40,24 @@ def clean():
 				if(c.strip() == ut['location']):
 					europei.append(tweet)
 
+	def insert():
+
+		conn = psycopg2.connect(host='localhost',
+        	                   	port=5432,
+            	                dbname='db_twitter',
+                	            user='maad',
+                    	        password='password')
+		curs = conn.cursor()
+		for tweet in europei:
+			ut = tweet['user']
+			curs.execute(
+            	   	'INSERT INTO tweet (coordinate, data_creazione, testo, lingua, geolocalizzazione, luogo_tweet, nome_utente,paese_utente, time_zone, numero_amici, following) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+               			(tweet['coordinates'], tweet['created_at'], tweet['text'], tweet['lang'], tweet['geo'], tweet['place'], 				
+               				ut['name'], ut['location'], ut['time_zone'], ut['friends_count'], ut['following'])
+               			)
+		conn.commit()
+		conn.close()				
+
 	print('saving tweets')
 	try:
 		insert()
@@ -55,20 +73,3 @@ def clear():
 		f = open('/home/ubuntu/data/twitter_data', "w")
 		f.close()
 
-def insert():
-
-	conn = psycopg2.connect(host='localhost',
-                           	port=5432,
-                            dbname='db_twitter',
-                            user='maad',
-                            password='password')
-	curs = conn.cursor()
-	for tweet in europei:
-		ut = tweet['user']
-		curs.execute(
-               	'INSERT INTO tweet (coordinate, data_creazione, testo, lingua, geolocalizzazione, luogo_tweet, nome_utente,paese_utente, time_zone, numero_amici, following) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-               		(tweet['coordinates'], tweet['created_at'], tweet['text'], tweet['lang'], tweet['geo'], tweet['place'], 				
-               			ut['name'], ut['location'], ut['time_zone'], ut['friends_count'], ut['following'])
-               		)
-	conn.commit()
-	conn.close()
