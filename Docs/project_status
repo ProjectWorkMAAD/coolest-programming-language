@@ -1,0 +1,22 @@
+STATUS AT 2015 05 19
+
+DATA RETRIVAL: done, running on AWS
+
+DATA CLEANING: 75%  
+
+TODO:
+
+manca l' inserimento dei dati nel database 			       invece che scrittura su file,
+mettere lo script su aws e farlo girare in batch
+
+		       
+DATA ANALYSIS: //TODO
+
+PRESENTATION:  50%
+
+TODO:
+
+-completare i grafici
+-creare l' applicazione MVC
+-parte di recupero dei dati dal database
+-rifinitura del sito(implementazioni accessorie)
