@@ -2,6 +2,7 @@ import requests
 import base64
 import psycopg2
 import json
+import os
 
 ##LOADING TWEETS
 
@@ -22,8 +23,10 @@ def clean(fname):
 
 	europei = []
 
-	nazioni = open('nazioni', 'r')
-	citta = open('citta', 'r')
+	#os.chdir(os.path.dirname(os.getcwd()))
+
+	nazioni = open('data/nazioni.dat', 'r')
+	citta = open('data/citta.dat', 'r')
 
 	nation = []
 	for naz in nazioni.readlines():
@@ -67,12 +70,10 @@ def insert(tweets):
 				else:
 					place_full_name = None
 				curs.execute(
-      			'INSERT INTO tweet(coordinate, data_creazione,' 
-      				'testo, lingua, geolocalizzazione, luogo_tweet, nome_utente,'
-      				'paese_utente,time_zone, numero_amici, followers) VALUES' 
-      				'(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-        			(tweet['coordinates'], tweet['created_at'], 
-        			tweet['text'], tweet['lang'], tweet['geo'], place_full_name, 
+      			'INSERT INTO tweet(created_at, text, lang, place, username,'
+      				'user_location,time_zone, friends_count, followers_count) VALUES' 
+      				'(%s, %s, %s, %s, %s, %s, %s, %s)',
+        			(tweet['created_at'], tweet['text'], tweet['lang'], place_full_name, 
 					ut['name'], ut['location'], ut['time_zone'], int(ut['friends_count']), 
 					ut['followers_count'])
 					)	

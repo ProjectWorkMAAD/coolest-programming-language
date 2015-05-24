@@ -3,9 +3,9 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
-def listen(cred_path, output_path):	
+def listen(output_path):	
     
-    credentials = open(cred_path, 'r')
+    credentials = open('data/credentials', 'r')
 
     def keyreader():
         for line in credentials.read().splitlines():
