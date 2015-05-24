@@ -2,7 +2,6 @@ import requests
 import base64
 import psycopg2
 import json
-import os
 import warnings
 
 ##LOADING TWEETS
@@ -39,8 +38,7 @@ def clean(fname):
 	for tweet in data:	
 		if 'user' in tweet:	
 			ut = tweet['user']
-		if(ut['location'] != None):
-			print(ut['location'])
+		if(ut['location'] != None):			
 			appoggio = ut['location'].split()
 			for p in appoggio:	
 				for n in nation:	

@@ -1,23 +1,24 @@
 import twitter_stream
 import cleaner
-import os
 
 if __name__ == '__main__':	
 
-	#raw_data file path
-	raw_data = 'data/twitter_data.json'
+	while True:
 
-	print('getting tweets...')			
-	twitter_stream.listen(raw_data)
+		#raw_data file path
+		raw_data = 'data/twitter_data.json'
 
-	print('cleaning tweets...')
-	european = cleaner.clean(raw_data)
-	print('uploading tweets on the Database...')
-	cleaner.insert(european)
+		print('getting tweets...')			
+		twitter_stream.listen(raw_data)
 
-	print('ereasing file content...')
-	f = open(raw_data, 'wr')
-	f.close()
-	print('DONE')
+		print('cleaning tweets...')
+		european = cleaner.clean(raw_data)
+		print('uploading tweets on the Database...')
+		cleaner.insert(european)
+
+		print('ereasing file content...')
+		f = open(raw_data, 'wr')
+		f.close()
+		print('repeating')
 
 
