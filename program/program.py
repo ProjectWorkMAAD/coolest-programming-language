@@ -3,22 +3,20 @@ import cleaner
 
 if __name__ == '__main__':	
 
-	while True:
+	#raw_data file path
+	raw_data = 'data/twitter_data.json'
 
-		#raw_data file path
-		raw_data = 'data/twitter_data.json'
+	while True:	
 
-		print('getting tweets...')			
-		twitter_stream.listen(raw_data)
-
-		print('cleaning tweets...')
+		##data retrival		
+		twitter_stream.listen(raw_data)		
+			
+		##data cleaning
 		european = cleaner.clean(raw_data)
-		print('uploading tweets on the Database...')
+
+		#insert
 		cleaner.insert(european)
 
-		print('ereasing file content...')
+		##ereasing file content		
 		f = open(raw_data, 'wr')
 		f.close()
-		print('repeating')
-
-

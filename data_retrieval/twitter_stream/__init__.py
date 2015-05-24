@@ -35,9 +35,12 @@ def listen(output_path):
             return False
 
         def on_error(self, status_code):	
-            print (status_code)
-            if status_code == 420:
-                exit()
+            error_log = open('data/error_log', 'a')
+            error_log.write(status_code)
+            if status_code == 420:                
+                return False
+            else   
+                continue 
 
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)

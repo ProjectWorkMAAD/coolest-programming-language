@@ -82,5 +82,3 @@ def insert(tweets):
 				
 	conn.commit()
 	conn.close()
-
-
