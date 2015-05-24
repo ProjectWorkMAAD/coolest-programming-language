@@ -3,6 +3,7 @@ import base64
 import psycopg2
 import json
 import os
+import warnings
 
 ##LOADING TWEETS
 
@@ -31,6 +32,7 @@ def clean(fname):
 	nation = []
 	for naz in nazioni.readlines():
 		nation.append(naz)
+
 	cities = []
 	for city in citta.readlines():
 		cities.append(city)
@@ -38,16 +40,18 @@ def clean(fname):
 		if 'user' in tweet:	
 			ut = tweet['user']
 		if(ut['location'] != None):
+			print(ut['location'])
 			appoggio = ut['location'].split()
 			for p in appoggio:	
 				for n in nation:	
 					if(n.strip() == p):
 						europei.append(tweet)
-			for c in cities:
+			for c in cities:					
 				if(c.strip() == ut['location']):
 					europei.append(tweet)
-			else:
-				continue
+				else:
+					continue					
+
 	f.close()
 	nazioni.close()
 	citta.close()					
@@ -62,23 +66,22 @@ def insert(tweets):
        	        password='password')
 	curs = conn.cursor()	
 	for tweet in tweets:
-		try:
-			if 'user' in tweet:				
-				ut = tweet['user']
-				if tweet['place'] != None:
-					place_full_name = tweet['place']['full_name']
-				else:
-					place_full_name = None
-				curs.execute(
-      			'INSERT INTO tweet(created_at, text, lang, place, username,'
-      				'user_location,time_zone, friends_count, followers_count) VALUES' 
-      				'(%s, %s, %s, %s, %s, %s, %s, %s)',
-        			(tweet['created_at'], tweet['text'], tweet['lang'], place_full_name, 
-					ut['name'], ut['location'], ut['time_zone'], int(ut['friends_count']), 
-					ut['followers_count'])
-					)	
-		except:
-			continue			
+		
+		if 'user' in tweet:				
+			ut = tweet['user']
+			if tweet['place'] != None:
+				place_full_name = tweet['place']['full_name']
+			else:
+				place_full_name = None
+			curs.execute(
+      		'INSERT INTO tweet(created_at, text, lang, place, username,'
+      			'user_location,time_zone, friends_count, followers_count) VALUES' 
+      			'(%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+        		(tweet['created_at'], tweet['text'], tweet['lang'], place_full_name, 
+				ut['name'], ut['location'], ut['time_zone'], int(ut['friends_count']), 
+				int(ut['followers_count']))
+				)		
+				
 	conn.commit()
 	conn.close()
 
