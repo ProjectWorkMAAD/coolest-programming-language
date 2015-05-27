@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class DBaccess{
 	
-	public void connectDB(DBaccessDelegate delegate){
+	public void connectDB(DBaccessDelegate delegate, String tableName){
 		try{
 			String driverName = "org.postgresql.Driver";
 			String databaseURL = "jdbc:postgresql://localhost/db_twitter";
@@ -25,7 +25,7 @@ public class DBaccess{
 			int idInizio = 0;
 			
 			//recupero ultimoId 
-			idInizio = recuperaUltimoId(connection);
+			idInizio = recuperaUltimoId(connection, tableName);
 			
 			//seleziona maxId
 			int ultimoId = selezionaMaxId(connection);
@@ -50,7 +50,7 @@ public class DBaccess{
 			}
 			
 			//salvo l'ultimo id analizzato
-			salvoUltimoId(connection, ultimoId);
+			salvoUltimoId(connection, ultimoId, tableName);
 			
 			connection.close();
 		}
@@ -76,11 +76,11 @@ public class DBaccess{
 		}
 	}
 	
-	public int recuperaUltimoId(Connection connection){
+	public int recuperaUltimoId(Connection connection, String tableName){
 		try{
 			int idInizio = 0;
-			String idMax = "SELECT max_id  FROM count_analysis";
-		
+			String idMax = "SELECT max_id  FROM %s";
+			idMax = idMax.format(idMax, tableName);
 			Statement statementUltimoId = connection.createStatement();
 			
 			ResultSet rsUltimoId = statementUltimoId.executeQuery(idMax);	
@@ -113,10 +113,10 @@ public class DBaccess{
 		}
 	}
 	
-	public void salvoUltimoId(Connection connection, int ultimoId){
+	public void salvoUltimoId(Connection connection, int ultimoId, String tableName){
 		try{
-			String idSave = "UPDATE count_analysis SET max_id = %s";
-			idSave = idSave.format(idSave, ultimoId);
+			String idSave = "UPDATE %s SET max_id = %s";
+			idSave = idSave.format(idSave, tableName, ultimoId);
 			Statement statementIdSave = connection.createStatement();	
 			
 			statementIdSave.executeUpdate(idSave);
