@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class DBaccess{
 	
-	public void connectDB(DBaccessDelegate delegate, String tableName){
+	public void connectDB(DBaccessDelegate delegate, String tableName){		
 		try{
 			String driverName = "org.postgresql.Driver";
 			String databaseURL = "jdbc:postgresql://localhost/db_twitter";
@@ -30,14 +30,6 @@ public class DBaccess{
 			//seleziona maxId
 			int ultimoId = selezionaMaxId(connection);
 			
-			//seleziono i tweet
-			
-			//non funziona questo metodo commentato
-			/*String query = " SELECT * FROM tweet WHERE id >= ? AND id <= ? ";
-				
-			PreparedStatement statement = connection.prepareStatement(query);
-			statement.setInt(1, idInizio);
-			statement.setInt(1, ultimoId);	*/
 			String query = "SELECT * FROM tweet WHERE id > %s AND id <= %s";
 			query = query.format(query, idInizio, ultimoId);
 			Statement statement = connection.createStatement();
@@ -47,11 +39,9 @@ public class DBaccess{
 				Tweet t = new Tweet();
 				mappingTweet(t,rs);
 			 	delegate.useIt(t);
-			}
-			
+			}			
 			//salvo l'ultimo id analizzato
-			salvoUltimoId(connection, ultimoId, tableName);
-			
+			salvoUltimoId(connection, ultimoId, tableName);			
 			connection.close();
 		}
 		catch(Exception e){
@@ -96,12 +86,9 @@ public class DBaccess{
 	
 	public int selezionaMaxId(Connection connection){
 		try{
-			String queryId = "SELECT MAX(id) as max FROM tweet";
-			
-			Statement statementId = connection.createStatement();
-				
+			String queryId = "SELECT MAX(id) as max FROM tweet";			
+			Statement statementId = connection.createStatement();				
 			ResultSet rsId = statementId.executeQuery(queryId);	
-
 			int ultimoId = 0;
 			while(rsId.next())  
 				ultimoId = rsId.getInt("max");
@@ -117,10 +104,8 @@ public class DBaccess{
 		try{
 			String idSave = "UPDATE %s SET max_id = %s";
 			idSave = idSave.format(idSave, tableName, ultimoId);
-			Statement statementIdSave = connection.createStatement();	
-			
-			statementIdSave.executeUpdate(idSave);
-			
+			Statement statementIdSave = connection.createStatement();				
+			statementIdSave.executeUpdate(idSave);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
