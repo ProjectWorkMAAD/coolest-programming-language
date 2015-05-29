@@ -1,6 +1,7 @@
 package maad.twitter.access;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 
 public class Tweet {
 	private int id;
