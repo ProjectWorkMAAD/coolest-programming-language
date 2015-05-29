@@ -1,5 +1,7 @@
 package maad.twitter.cleaning;
 
+import java.sql.ResultSet;
+
 import maad.twitter.access.*;
 
 public class Cleaning {
@@ -10,38 +12,29 @@ public class Cleaning {
 	 * 
 	 */
 	public void runCleaning() {
-		/*
-		 * String table = "count_cleaning"; CustomDBaccess db = new
-		 * CustomDBaccess(); db.connectDB(new DBaccessDelegate() { public void
-		 * useIt(Tweet tweet) { checkTweet(new DBaccessDelegate() {
-		 * 
-		 * } }, tweet); } }, table);
-		 */
-
 		String table = "count_cleaning";
-		CustomDBaccess db = new CustomDBaccess();
+		CustomDBaccess db = new CustomDBaccess();		
 		db.connectDB(new DBaccessDelegate() {
 			@Override
 			public void useIt(Tweet tweet) {
 				checkTweet(new CleaningDelegate() {
 					@Override
 					public void check(String word) {
-						// TODO Auto-generaDBaccessDelegateSted method stub
+						// TODO implement the call to checkTweet + the function in the dbAccess that uses the interface
 					}
-				}, tweet, db);
-			}
+				}, tweet, db.getWords());
+			} 
 		}, table);
 	}
+	
 
-	public void checkTweet(CleaningDelegate delegate, Tweet tweet, CustomDBaccess db) {
 
-		String text = tweet.getText();
+	public void checkTweet(CleaningDelegate delegate, Tweet tweet, ResultSet rs) {
+		
 		// mi deve passare una stringa alla volta della tabella cleaning del
 		// database
-		String search = "";
-
-		if (text.toLowerCase().indexOf(search) >= 1) {
-			db.delete(tweet);
+		if (tweet.getText().toLowerCase().indexOf("") >= 1) {
+			
 		}
 
 	}

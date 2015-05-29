@@ -69,14 +69,14 @@ public class DBaccess{
 	public int recuperaUltimoId(Connection connection, String tableName){
 		try{
 			int idInizio = 0;
-			String idMax = "SELECT max_id  FROM %s";
+			String idMax = "SELECT last_id  FROM %s";
 			idMax = idMax.format(idMax, tableName);
 			Statement statementUltimoId = connection.createStatement();
 			
 			ResultSet rsUltimoId = statementUltimoId.executeQuery(idMax);	
 		
 			while(rsUltimoId.next())
-				idInizio = rsUltimoId.getInt("max_id");
+				idInizio = rsUltimoId.getInt("last_id");
 			return idInizio;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,7 +102,7 @@ public class DBaccess{
 	
 	public void salvoUltimoId(Connection connection, int ultimoId, String tableName){
 		try{
-			String idSave = "UPDATE %s SET max_id = %s";
+			String idSave = "UPDATE %s SET last_id = %s";
 			idSave = idSave.format(idSave, tableName, ultimoId);
 			Statement statementIdSave = connection.createStatement();				
 			statementIdSave.executeUpdate(idSave);			
