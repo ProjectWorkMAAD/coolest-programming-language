@@ -1,0 +1,3 @@
+Attraverso un analisi dei tweet abbiamo osservato che molti tweet in cui figura la parola "python" si riferiscono al gruppo comico inglese "Monty Python", quelli contententi "scala" alla scala di milano, ecc..
+
+abbiamo quindi sviluppato un programma di cleaning in Java che gira in batch sul server AWS che ogni ora controlla i tweet inseriti nel database ed elimina quelli non inerenti ai linguaggi di programmazione.

@@ -1,40 +1,49 @@
 package maad.twitter.cleaning;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 import maad.twitter.access.*;
 
 public class Cleaning {
-	/**
-	 * la funzione implementa il DB access delegate applica le logiche di
-	 * cleaning al tweet passando uno alla volta gli elementi della tabella
-	 * cleaning
-	 * 
-	 */
-	public void runCleaning() {
-		String table = "count_cleaning";
-		CustomDBaccess db = new CustomDBaccess();		
-		db.connectDB(new DBaccessDelegate() {
-			@Override
-			public void useIt(Tweet tweet) {
-				checkTweet(new CleaningDelegate() {
-					@Override
-					public void check(String word) {
-						// TODO implement the call to checkTweet + the function in the dbAccess that uses the interface
-					}
-				}, tweet, db.getWords());
-			} 
-		}, table);
-	}
-	
-
-
-	public void checkTweet(CleaningDelegate delegate, Tweet tweet, ResultSet rs) {
 		
-		// mi deve passare una stringa alla volta della tabella cleaning del
-		// database
-		if (tweet.getText().toLowerCase().indexOf("") >= 1) {
-			
+	public void runCleaning() {
+		
+		String table = "count_cleaning";	
+		CustomDBaccess db = new CustomDBaccess();		
+		Connection connection = db.dbConnection();		
+		int from = db.getLastId(connection, table);		
+		int to = db.selectMaxId(connection);		
+		ResultSet tweets = db.getTweets(connection, from, to);		
+		ResultSet words = db.getWords(connection);	
+		
+		db.delegateTweet(new DBaccessDelegate() {
+			@Override
+			public void useIt(Tweet t) {
+				checkTweet(t, words);			
+			}				
+		}, tweets);		
+		
+		//se la pulizia va a buon fine aggiornare count_cleaning
+		
+	}	
+	
+	/**
+	 * 
+	 * @param tweet
+	 * @param words
+	 */
+	public void checkTweet(Tweet tweet, ResultSet words) {				
+		
+		try {
+			while(words.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
