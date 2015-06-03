@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Team MAAD - Contattaci";
+}
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <div class="row mt">
+            <div class="col-lg-12">
+                <h3><i class="fa fa-edit"></i> Contattaci</h3>
+                <div class="jumbotron">
+                    <p>
+                        Se hai delle domande su come è stato realizzato questo progetto non esitare a contattarci, saremo felice di risponderti!!
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" class="form-control" id="name" placeholder="Inserisci nome" required="required" /><br />
+                            <label for="email">Indirizzo email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-envelope-o"></span></span>
+                                <input type="email" class="form-control" id="email" placeholder="Inserisci email" required="required" />
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Messaggio</label>
+                            <textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required" placeholder="Scrivi il tuo messaggio"></textarea><br />
+                        </div>                        
+                    </div><!-- /col -->
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="g-recaptcha" data-sitekey="6LfB6wYTAAAAAOwcKlFb-TZLwDOV3DpE1AscUnnC">
+                        </div><br />
+                        <input type="submit" name="submit" id="submit" value="Invia" class="btn btn-info">
+                    </div>
+                </div><!-- /row -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </section><!-- /wrapper -->
+</section><!-- /MAIN CONTENT -->
+<script src="https://www.google.com/recaptcha/api.js"></script>

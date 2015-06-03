@@ -1,0 +1,81 @@
+﻿
+@{
+    string currentAction = ViewContext.RouteData.Values["controller"] as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/style-responsive.css" rel="stylesheet" />
+    <link href="~/Content/table-responsive.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<body>
+
+    <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Menù"></div>
+        </div>
+        <!--logo start-->
+        <a href="index.html" class="logo"><b>Project Work MAAD</b></a>
+        <!--logo end-->
+    </header>
+
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a href='@Url.Action( "Index", "Home")' class='@Html.Raw(currentAction == "Home" ? "active" : "")'><i class='fa fa-home'></i> Cos'è</a>
+                </li>
+                <li>
+                    <a href='@Url.Action( "Index", "Team")' class='@Html.Raw(currentAction == "Team" ? "active" : "")'><i class='fa fa-users'></i> Il Team</a>
+                </li>
+                <li>
+                    <a href='@Url.Action( "Index", "Twitter")' class='@Html.Raw(currentAction == "Twitter" ? "active" : "")'><i class="fa fa-code"></i> Twitter Analysis</a>                   
+                </li>
+                <li>
+                    <a href='@Url.Action( "Index", "Contacts")' class='@Html.Raw(currentAction == "Contacts" ? "active" : "")'><i class="fa fa-edit"></i> Contattaci</a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+
+    <!--footer start-->
+    @*<div class="wrapper site-min-height">*@
+        @RenderBody()
+        <footer class="site-footer">
+            <div class="text-center">
+                @DateTime.Now.Year - Project Work MAAD
+                <a href="#" class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+            </div>
+
+        </footer>
+    @*</div>*@
+    <!--footer  end-->
+    <!-- ############### SCRIPTS ###############################  -->
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/Scripts/jquery.nicescroll.js"></script>
+    <script src="~/Scripts/common-scripts.js"></script>
+
+
+</body>
+</html>
+
+
+
+

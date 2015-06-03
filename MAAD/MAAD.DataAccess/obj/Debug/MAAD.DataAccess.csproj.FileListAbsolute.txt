@@ -1,0 +1,14 @@
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\MAAD.DataAccess.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\MAAD.DataAccess.pdb
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\Mono.Security.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\Npgsql.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\Npgsql.xml
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\de\Npgsql.resources.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\es\Npgsql.resources.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\fi\Npgsql.resources.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\fr\Npgsql.resources.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\ja\Npgsql.resources.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\bin\Debug\zh-CN\Npgsql.resources.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\obj\Debug\MAAD.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\obj\Debug\MAAD.DataAccess.dll
+C:\Users\Mauro\Documents\Programmazione\ASP\MAAD\MAAD.DataAccess\obj\Debug\MAAD.DataAccess.pdb
