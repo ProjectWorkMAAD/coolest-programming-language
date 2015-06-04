@@ -1,51 +1,80 @@
 package maad.twitter.cleaning;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
 import maad.twitter.access.*;
 
 public class Cleaning {
-		
+
+	private String table;
+	private CustomDBaccess db = new CustomDBaccess();
+	int counter = 0;
+
 	public void runCleaning() {
-		
-		String table = "count_cleaning";	
-		CustomDBaccess db = new CustomDBaccess();		
-		Connection connection = db.dbConnection();		
-		int from = db.getLastId(connection, table);		
-		int to = db.selectMaxId(connection);		
-		ResultSet tweets = db.getTweets(connection, from, to);		
-		ResultSet words = db.getWords(connection);	
-		
+
+		db.dbConnection();
+		int from = db.getLastId(table);
+		int to = db.selectMaxId();
+		ResultSet tweets = db.getTweets(from, to);
+
 		db.delegateTweet(new DBaccessDelegate() {
 			@Override
 			public void useIt(Tweet t) {
-				checkTweet(t, words);			
-			}				
-		}, tweets);		
-		
-		//se la pulizia va a buon fine aggiornare count_cleaning
-		
-	}	
-	
-	/**
-	 * 
-	 * @param tweet
-	 * @param words
-	 */
-	public void checkTweet(Tweet tweet, ResultSet words) {				
-		
-		try {
-			while(words.next()) {
-				
+				checkTweet(t, db.getWords());
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		}, tweets);
+		db.updateLastId(to, table);
 	}
 
+	/**
+	 * @param tweet
+	 * @param words
+	 * @throws SQLException
+	 */
+	public void checkTweet(Tweet tweet, ResultSet rs) {
+
+		try {
+			while (rs.next()) {
+				if (wordIsIn(tweet.getText().toLowerCase(),
+						rs.getString("words"))) {
+					db.delete(tweet.getId());
+					counter++;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean wordIsIn(String stringa, String sottostringa) {
+		boolean cerca = false;
+
+		int max = stringa.length() - sottostringa.length();
+
+		test: for (int i = 0; i <= max; i++) {
+			int n = sottostringa.length();
+			int j = i;
+			int k = 0;
+			while (n-- != 0) {
+				if (stringa.charAt(j++) != sottostringa.charAt(k++)) {
+					continue test;
+				}
+			}
+			cerca = true;
+			break test;
+		}
+		return cerca;
+	}
+
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
 }
