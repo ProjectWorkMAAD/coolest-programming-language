@@ -12,81 +12,70 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBaccess {
-	
-	//ELIMINATE TUTTE LE LOGICHE DAL DATA ACCESS!!!	
 
-	/**
-	 * @param delegate
-	 * @param tableName
-	 *            questo metodo chiama il delegate passandogli un tweet alla
-	 *            volta dal result set
-	 */
-	// IMPLEMENTARE METODO NELLA CLASSE ESTESA, CHE USA delegateTweet
-	// con le logiche del caso.
 
-	public void delegateTweet(DBaccessDelegate delegate, ResultSet tweets) {
-
-		// IMPLEMENTALO NELLA CLASSE ESTESA!!!
-		// seleziono linguaggi di programmazione
-		// List<String> languages = selectLanguages(connection);
-
-		// ho modificato il delegate adesso non funzionerà piu il metodo, devi
-		// implementare la logica nella classe estesa
+	public void getTweet(DBaccessDelegate delegate, String tableName) {
 		try {
-			while (tweets.next()) {
+			
+			Connection connection = connessioneDb();
+			
+			int idInizio = 0;
+
+			// recupero ultimoId
+			idInizio = recuperaUltimoId(tableName);
+
+			// seleziona maxId
+			int ultimoId = selezionaMaxId();
+
+			// seleziono linguaggi di programmazione
+			//List<String> languages = selectLanguages(connection);
+
+			// seleziono i tweet
+
+			// non funziona questo metodo commentato
+			/*
+			 * String query = " SELECT * FROM tweet WHERE id >= ? AND id <= ? ";
+			 * 
+			 * PreparedStatement statement = connection.prepareStatement(query);
+			 * statement.setInt(1, idInizio); statement.setInt(1, ultimoId);
+			 */
+			String query = "SELECT * FROM tweet WHERE id > %s AND id <= %s";
+			query = query.format(query, idInizio, ultimoId);
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+
+			while (rs.next()) {
 				Tweet t = new Tweet();
-				mappingTweet(t, tweets);
+				mappingTweet(t, rs);
 				delegate.useIt(t);
 			}
-		} catch (SQLException e) {
+
+			// salvo l'ultimo id analizzato
+			salvoUltimoId(ultimoId, tableName);
+
+			connection.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * 
-	 * @param connection
-	 * @param tableName
-	 * @return result set contentente i tweet
-	 */
-	public ResultSet getTweets(Connection connection, int from, int to) {
-		/*
-		 * int idInizio = 0; // recupero ultimoId idInizio =
-		 * getLastId(connection, tableName); // seleziona maxId int ultimoId =
-		 * selectMaxId(connection);
-		 */
-		String query = "SELECT * FROM tweet WHERE id > %s AND id <= %s";
-		query = query.format(query, from, to);
-		ResultSet rs = executeQuery(connection, query);
-		return rs;
-	}
-	public Connection dbConnection() {
+
+	public Connection connessioneDb(){
 		Connection connection = null;
-		try {
-			String driverName = "org.postgresql.Driver";
-			String databaseURL = "jdbc:postgresql://localhost/db_twitter";
-			Class driverClass = Class.forName(driverName);
+		try{
+		String driverName = "org.postgresql.Driver";
+		String databaseURL = "jdbc:postgresql://localhost/db_twitter";
+		Class driverClass = Class.forName(driverName);
 
-			Driver driver = (Driver) driverClass.newInstance();
-
-			connection = DriverManager.getConnection(databaseURL, "maad",
-					"password");
-		} catch (Exception e) {
+		Driver driver = (Driver) driverClass.newInstance();
+		
+		connection = DriverManager.getConnection(databaseURL,
+				"maad", "password");
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return connection;
 	}
-
-	public ResultSet executeQuery(Connection connection, String query) {
-		ResultSet result = null;
-		try {
-			java.sql.Statement statement = connection.createStatement();
-			result = statement.executeQuery(query);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		return result;
-	}
-
+	
 	public void mappingTweet(Tweet t, ResultSet rs) throws SQLException {
 		try {
 			t.setId(rs.getInt("id"));
@@ -104,12 +93,16 @@ public class DBaccess {
 		}
 	}
 
-	public int getLastId(Connection connection, String tableName) {
+	public int recuperaUltimoId(String tableName) {
+		Connection connection = connessioneDb();
 		try {
 			int idInizio = 0;
 			String idMax = "SELECT last_id  FROM %s";
 			idMax = idMax.format(idMax, tableName);
-			ResultSet rsUltimoId = executeQuery(connection, idMax);
+			Statement statementUltimoId = connection.createStatement();
+
+			ResultSet rsUltimoId = statementUltimoId.executeQuery(idMax);
+
 			while (rsUltimoId.next())
 				idInizio = rsUltimoId.getInt("last_id");
 			return idInizio;
@@ -119,22 +112,28 @@ public class DBaccess {
 		}
 	}
 
-	public int selectMaxId(Connection connection) {
+	public int selezionaMaxId() {
+		Connection connection = connessioneDb();
 		try {
 			String queryId = "SELECT MAX(id) as max FROM tweet";
-			ResultSet rsId = executeQuery(connection, queryId);
+
+			Statement statementId = connection.createStatement();
+
+			ResultSet rsId = statementId.executeQuery(queryId);
+
 			int ultimoId = 0;
 			while (rsId.next())
 				ultimoId = rsId.getInt("max");
 			return ultimoId;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 1;
 		}
 	}
 
-	public void updateLastId(Connection connection, int ultimoId,
-			String tableName) {
+	public void salvoUltimoId(int ultimoId, String tableName) {
+		Connection connection = connessioneDb();
 		try {
 			String idSave = "UPDATE %s SET last_id = %s";
 			idSave = idSave.format(idSave, tableName, ultimoId);
@@ -146,30 +145,67 @@ public class DBaccess {
 			e.printStackTrace();
 		}
 	}
-	// IMPLEMENTALO NELLA CLASSE ESTESA
-	/*
-	 * public List<String> selectLanguages(Connection connection) {
-	 * 
-	 * List<String> languages = new ArrayList<String>(); try { String query =
-	 * "SELECT * FROM languages"; Statement statement =
-	 * connection.createStatement(); ResultSet rs =
-	 * statement.executeQuery(query); while (rs.next()) {
-	 * languages.add(rs.getString("language")); }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return languages; }
-	 */
 
-	// IMPLEMENTALO NELLA CLASSE ESTESA
-	/*
-	 * public boolean languagesInDb(String s) { 
-	 * 
-	 * boolean ris = false; try {
-	 * Connection connection = dbConnection(); String query =
-	 * "SELECT * FROM languages"; Statement statement =
-	 * connection.createStatement(); ResultSet rs =
-	 * statement.executeQuery(query); while (rs.next()) { if (s ==
-	 * rs.toString()) ris = true; }
-	 * 
-	 * } catch (Exception e) { e.printStackTrace(); } return ris; }
-	 */
+	public List<String> selectLanguages() {
+
+		List<String> languages = new ArrayList<String>();
+		Connection connection = connessioneDb();
+		try {
+			String query = "SELECT * FROM languages";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				languages.add(rs.getString("language"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return languages;
+	}
+	
+	public boolean languagesInDb(int s){
+		boolean ris = false;
+		Connection connection = connessioneDb();
+		try {
+			String query = "SELECT language FROM graphs";
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()){
+				//System.out.println(s);
+				//System.out.println(rs.getString("language"));
+				if(s == rs.getInt("language")/*.equals(rs.getString("language").toLowerCase())*/){
+					ris = true;
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ris;
+	}
+	
+	public void insertLanguage(int language, Tweet t){
+		Connection connection = connessioneDb();
+		try{	
+			String query = "INSERT INTO graphs(counter, language, date, nation) VALUES(1,'%s','%s','%s')";
+			query = query.format(query, language, t.getCreated_at(), t.getUser_location());
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateCounter(int language){
+		Connection connection = connessioneDb();
+		try{	
+			String query = "UPDATE graphs SET counter = counter + 1 WHERE language = '%s' ";
+			query = query.format(query, language);
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
