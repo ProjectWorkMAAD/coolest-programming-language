@@ -48,4 +48,4 @@ Deploy the applications on Microsoft Azure.
 http://projectworkmaad.azurewebsites.net/
 
 
-COOL CHARTS WEBSITE https://www.zingchart.com/buy/
+COOL CHARTS WEBSITE https://www.zingchart.com/
